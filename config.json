@@ -1,0 +1,26 @@
+{
+    "settings":
+    {
+        "minOSVer": "10.0.0",
+        "minSDKVer": "1.0.0",
+        "idleTimerDisabled": false,
+        "autoKeyboardEnabled": false,
+        "keyboardToolbarEnabled": false,
+        "rotateDisabled": false
+    },
+    "info":
+    {
+        "version": "1.0.0",
+        "author": "Hector",
+        "website": "https://github.com/hectorqin",
+        "url": "",
+        "types": 3,
+        "name": "SysInfo++"
+    },
+    "widget":
+    {
+        "tintColor": "",
+        "iconColor": "",
+        "height": 180
+    }
+}
