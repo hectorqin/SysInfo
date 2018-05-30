@@ -1,4 +1,4 @@
-## SysInfo++
+## SysInfoPlus
 本脚本结合了 Ryan 的 Progress 和 ZiGma 的 SysInfo Pro，提供 系统信息模块 和 进度 模块的切换
 
 ## 声明
