@@ -5,7 +5,7 @@ var cacheType = $cache.get("PROGRESS_TYPE") || 0
 function render(onDoubleTapped = false, onLongPressed) {
     let typeView = getType(cacheType).view
     typeView.props.alpha = 1
-    $ui.render({
+    return {
         views: [{
             type: "view",
             props: {
@@ -33,8 +33,9 @@ function render(onDoubleTapped = false, onLongPressed) {
                     onLongPressed && onLongPressed(sender)
                 }
             }
-        }]
-    })
+        }],
+        layout: $layout.fill
+    }
 }
 
 function toggleType(subview, type) {

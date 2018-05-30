@@ -73,7 +73,7 @@ function render(onDoubleTapped = false, onLongPressed) {
             }
         ]
     }
-    $ui.render({
+    return {
         views: [{
                 type: "view",
                 props: {
@@ -108,8 +108,9 @@ function render(onDoubleTapped = false, onLongPressed) {
                     }
                 }
             }
-        ]
-    })
+        ],
+        layout: $layout.fill
+    }
 }
 
 function upText(n) {
