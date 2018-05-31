@@ -225,8 +225,9 @@ function render(onDoubleTapped = false, onLongPressed) {
             type: "matrix",
             props: {
                 columns: 6,
-                itemHeight: 55,
-                spacing: 5,
+                // itemHeight: 50,
+                square: true,
+                spacing: 6,
                 template: [{
                         type: "blur",
                         props: {
@@ -241,12 +242,11 @@ function render(onDoubleTapped = false, onLongPressed) {
                             id: "title",
                             textColor: $color("gray"),
                             bgcolor: $color("clear"),
-                            font: $font(8)
+                            font: $font(7)
                         },
                         layout(make, view) {
-                            make.bottom.inset(0)
+                            make.bottom.inset(4)
                             make.centerX.equalTo(view.super)
-                            make.height.equalTo(20)
                         }
                     },
                     {
@@ -256,20 +256,21 @@ function render(onDoubleTapped = false, onLongPressed) {
                             bgcolor: $color("clear")
                         },
                         layout(make, view) {
-                            make.top.inset(1)
+                            make.top.inset(4)
                             make.centerX.equalTo(view.super)
-                            make.size.equalTo(38)
+                            make.size.equalTo(35)
                         }
                     }
                 ],
                 data: data
             },
             layout: function(make, view) {
-                make.centerY.equalTo(view.super)
-                make.left.right.equalTo(0)
+                make.left.right.inset(8)
                 if($app.env == $env.today){
+                    make.centerY.equalTo(view.super).offset(1)
                     make.height.equalTo(120)
                 }else{
+                    make.centerY.equalTo(view.super)
                     make.height.equalTo(240)
                 }
             },
