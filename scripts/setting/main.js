@@ -10,7 +10,7 @@ function render(onDoubleTapped = false, onLongPressed) {
     Object.keys(setting).forEach((item)=>{
         data.push({
             setup: {
-                text: setting[item][0]
+                text: "显示" + setting[item][0]
             },
             value: {
                 on: setting[item][1],

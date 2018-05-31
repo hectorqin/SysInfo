@@ -19,6 +19,11 @@ Object.keys(setting).forEach((item)=>{
     }
 })
 
+if($app.env != $env.today){
+    moduleName = moduleName.concat(["setting"])
+    moduleCHName = moduleCHName.concat(["设置"])
+}
+
 if(NOW_MODULE >= moduleName.length){
     NOW_MODULE = 0
 }
@@ -53,10 +58,6 @@ function getModuleView(index, isFirst=false){
 }
 
 function renderMainView() {
-    if($app.env != $env.today){
-        moduleName = moduleName.concat(["setting"])
-        moduleCHName = moduleCHName.concat(["设置"])
-    }
     const mainUI = {
         type: "view",
         props: {
