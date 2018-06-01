@@ -216,7 +216,7 @@ const data = [{
     },
 ]
 
-function render(onDoubleTapped = false, onLongPressed) {
+function render(onDoubleTapped = false, onLongPressed = false) {
     return {
         props: {
             title: "Launcher"

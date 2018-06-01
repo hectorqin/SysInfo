@@ -1,9 +1,4 @@
-const ALL_MODULE_LIST = {
-    "progress": ["进度", true],
-    "sysinfo": ["系统", true],
-    "launcher": ["启动器", true]
-}
-
+const ALL_MODULE_LIST = require("scripts/constant").ALL_MODULE_LIST
 function render(onDoubleTapped = false, onLongPressed) {
     let setting = $cache.get("OPEN_MODULE_LIST") || ALL_MODULE_LIST
     let data = []
@@ -65,7 +60,7 @@ function render(onDoubleTapped = false, onLongPressed) {
                             },
                             layout: function(make, view) {
                                 make.centerY.equalTo(view.super)
-                                make.right.inset(10)
+                                make.right.inset(0)
                             },
                             events: {
                                 changed: function(sender) {

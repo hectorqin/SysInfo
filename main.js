@@ -1,8 +1,5 @@
-const ALL_MODULE_LIST = {
-    "progress": ["进度", true],
-    "sysinfo": ["系统", true],
-    "launcher": ["启动器", true]
-}
+const ALL_MODULE_LIST = require("scripts/constant").ALL_MODULE_LIST
+
 const MENU_ALPHA = 0.7
 let NOW_MODULE = $cache.get("NOW_MODULE") || 0
 let moduleList = []
