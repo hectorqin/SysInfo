@@ -9,32 +9,32 @@ let setting = $cache.get("OPEN_MODULE_LIST") || ALL_MODULE_LIST
 let moduleName = []
 let moduleCHName = []
 
-Object.keys(setting).forEach((item)=>{
-    if(setting[item][1]){
+Object.keys(ALL_MODULE_LIST).forEach((item) => {
+    if (setting[item][1]) {
         moduleName.push(item)
         moduleCHName.push(setting[item][0])
     }
 })
 
-if($app.env != $env.today){
+if ($app.env != $env.today) {
     moduleName = moduleName.concat(["setting"])
     moduleCHName = moduleCHName.concat(["设置"])
 }
 
-if(NOW_MODULE >= moduleName.length){
+if (NOW_MODULE >= moduleName.length) {
     NOW_MODULE = 0
 }
 
 let delayTimer = 0
 
-function toggleModule(isToggle=true) {
-    if(isToggle){
+function toggleModule(isToggle = true) {
+    if (isToggle) {
         $device.taptic(0)
         getModule(NOW_MODULE).destroy()
-        NOW_MODULE ++
+        NOW_MODULE++
         tapMenu()
     }
-    if(NOW_MODULE >= moduleName.length){
+    if (NOW_MODULE >= moduleName.length) {
         NOW_MODULE = 0
     }
     $cache.set("NOW_MODULE", NOW_MODULE)
@@ -43,8 +43,8 @@ function toggleModule(isToggle=true) {
     $("main-content").add(getModule(NOW_MODULE).render(toggleModule, toggleModule))
 }
 
-function getModuleView(index, isFirst=false){
-    if(!isFirst){
+function getModuleView(index, isFirst = false) {
+    if (!isFirst) {
         $device.taptic(0)
         getModule(NOW_MODULE).destroy()
         tapMenu()
@@ -59,7 +59,7 @@ function renderMainView() {
         type: "view",
         props: {
             id: "main-view",
-            // debugging: true,
+            debugging: true,
         },
         views: [{
             type: "view",
@@ -82,10 +82,10 @@ function renderMainView() {
             },
             layout: function(make, view) {
                 make.centerX.equalTo(view.super.centerX)
-                if($app.env == $env.today){
+                if ($app.env == $env.today) {
                     make.height.equalTo(18)
                     make.bottom.inset(2)
-                }else{
+                } else {
                     make.height.equalTo(35)
                     make.bottom.inset(5)
                 }
@@ -108,20 +108,20 @@ function renderMainView() {
 }
 
 function getModule(index) {
-    if(!moduleList[index]){
+    if (!moduleList[index]) {
         moduleList[index] = require(`scripts/${moduleName[index]}/main`)
     }
     return moduleList[index]
 }
 
-function debug(msg){
+function debug(msg) {
     // $ui.toast(msg, 0.3)
 }
 
-function tapMenu(){
-    if($app.env != $env.today) return
+function tapMenu() {
+    if ($app.env != $env.today) return
     debug("tapMenu")
-    if($("main-menu").hidden){
+    if ($("main-menu").hidden) {
         $("main-menu").hidden = false
         $ui.animate({
             duration: 0.2,
@@ -130,10 +130,10 @@ function tapMenu(){
             }
         })
     }
-    let timer = ++ delayTimer
-    $delay(2, ()=>{
+    let timer = ++delayTimer
+    $delay(2, () => {
         debug("timer " + timer)
-        if(timer==delayTimer){
+        if (timer == delayTimer) {
             $ui.animate({
                 duration: 1,
                 animation: function() {
@@ -158,7 +158,32 @@ function tapMenu(){
 
 
 
-
+// $ui.render({
+//     type: "view",
+//     props: {
+//         id: "main-view",
+//         debugging: true,
+//     },
+//     views: [{
+//         type: "progress",
+//         props: {
+//             value: 0.7,
+//             radius: 7,
+//             progressColor: $color("#D847FF"),
+//             trackColor: $color("#BF00F2")
+//         },
+//         layout: function(make, view) {
+//             make.center.equalTo(view.super)
+//             make.size.equalTo($size(240, 40))
+//         },
+//         events: {
+//             tapped(sender){
+//                 sender.progressColor = $color("#D847FF")
+//                 sender.trackColor = $color("#BF00F2")
+//             }
+//         }
+//     }]
+// })
 
 
 

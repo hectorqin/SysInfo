@@ -2,7 +2,8 @@ var wid = $device.info.screen.width
 var day_clac = (new Date()).toLocaleDateString()
 var day_dis = displaydate(day_clac)
 var DEFAULT_ = [day_dis, day_clac, "", "", ""]
-let file = $file.read("Setting.conf")
+const SETTING_FILE='countdown-setting.conf'
+let file = $file.read(SETTING_FILE)
 let SETTING_ = (typeof file == "undefined") ? JSON.parse(JSON.stringify(DEFAULT_)) : JSON.parse(file.string)
 
 let preview_ = {
@@ -12,6 +13,20 @@ let preview_ = {
     },
     layout: $layout.fill,
     views: [{
+        type: "progress",
+        props: {
+            id: "target_progress",
+            value: bg_length()[0],
+            radius: 7,
+            progressColor: $color(SETTING_[3]),
+            trackColor: $color(SETTING_[4])
+        },
+        layout: function(make, view) {
+            make.centerY.equalTo(view.super).offset(-5)
+            make.right.equalTo(view.super).inset(15)
+            make.size.equalTo($size(bg_length()[1], 40))
+        }
+    },{
         type: "label",
         props: {
             id: "target_text",
@@ -49,7 +64,7 @@ let preview_ = {
     }, {
         type: "label",
         props: {
-            id: "days_1",
+            id: "day_distance",
             color: $color("white"),
             font: $font("AvenirNext-DemiBold", 30),
         },
@@ -75,22 +90,9 @@ let countdownView = {
     props: {},
     layout: $layout.fill,
     views: [{
-        type: "progress",
-        props: {
-            value: bg_length()[0],
-            radius: 7,
-            progressColor: $color(SETTING_[3]),
-            trackColor: $color(SETTING_[4])
-        },
-        layout: function(make, view) {
-            make.centerY.equalTo(view.super)
-            make.right.equalTo(view.super).inset(10)
-            make.size.equalTo($size(bg_length()[1], 40))
-        }
-    }, {
         type: "view",
         layout: function(make, view) {
-            make.centerX.equalTo(view.super)
+            make.center.equalTo(view.super)
             make.size.equalTo($size(wid - 4, 120))
         },
         views: [preview_]
@@ -131,7 +133,21 @@ function bg_length() {
 }
 
 function refresh() {
-    $("days_1").text = clacdays(SETTING_[1])[0]
+    file = $file.read(SETTING_FILE)
+    SETTING_ = (typeof file == "undefined") ? JSON.parse(JSON.stringify(DEFAULT_)) : JSON.parse(file.string)
+    console.log(SETTING_)
+    let bgConfig = bg_length()
+    $("target_progress").value = bgConfig[0];
+    // TODO 更新颜色bug
+    // $("target_progress").progressColor = $color(SETTING_[3]);
+    // $("target_progress").trackColor = $color(SETTING_[4]);
+    $("target_progress").updateLayout(function(make) {
+        make.size.equalTo($size(bgConfig[1], 40))
+    })
+    $("target_text").text = SETTING_[2]
+    $("target_key_").text = SETTING_[1]
+    $("target_date").text = clacdays(SETTING_[1])[2] + "日：" + SETTING_[0].replace(/[年|月]/g, "-").replace(/日/, "")
+    $("day_distance").text = clacdays(SETTING_[1])[0]
 
     //限制事件字符长度
     var lth = (SETTING_[2]).replace(/[^\x00-\xff]/g, "01").length

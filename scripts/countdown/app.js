@@ -3,10 +3,12 @@ var day_clac = (new Date()).toLocaleDateString()
 var day_dis = displaydate(day_clac)
 let DEFAULT_ = [day_dis, day_clac, "", "#409EF6", "#2C86D9"]
 let SETTING_ = {}
+const SETTING_FILE='countdown-setting.conf'
 
 function render() {
-    let file = $file.read("countdown-setting.conf")
+    let file = $file.read(SETTING_FILE)
     SETTING_ = (typeof file == "undefined") ? JSON.parse(JSON.stringify(DEFAULT_)) : JSON.parse(file.string)
+    console.log(SETTING_)
     //设置缓存
     setcache(SETTING_[1])
 
@@ -116,7 +118,7 @@ function render() {
                 savesetting(0, $("date_").text)
                 savesetting(1, $cache.get("data_c")[1])
                 savesetting(2, $("text_").text)
-                $app.close()
+                $ui.pop()
             }
         }
     }
@@ -236,7 +238,7 @@ function render() {
             //保存按钮
             type: "view",
             layout: function(make, view) {
-                make.top.equalTo(view.super).offset(260)
+                make.top.equalTo(view.super).offset(300)
                 make.size.equalTo($size(wid, 60))
             },
             views: [save_]
@@ -278,7 +280,7 @@ function savesetting(section, value) {
     SETTING_[section] = value
     $file.write({
         data: $data({ string: JSON.stringify(SETTING_) }),
-        path: "Setting.conf"
+        path: SETTING_FILE
     })
 }
 

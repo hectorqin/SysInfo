@@ -1,8 +1,10 @@
 const ALL_MODULE_LIST = require("scripts/constant").ALL_MODULE_LIST
+let moduleList = {}
+
 function render(onDoubleTapped = false, onLongPressed) {
     let setting = $cache.get("OPEN_MODULE_LIST") || ALL_MODULE_LIST
     let data = []
-    Object.keys(setting).forEach((item)=>{
+    Object.keys(ALL_MODULE_LIST).forEach((item)=>{
         data.push({
             setup: {
                 text: "显示" + setting[item][0]
@@ -97,9 +99,20 @@ function render(onDoubleTapped = false, onLongPressed) {
     }
 }
 
+function noop(){
+
+}
+
 function hanldeMoreMenu(listView, indexPath) {
     let item = listView.object(indexPath)
     console.log(item)
+    if(item.setup.text.match(/^显示/)){
+        if(!moduleList[item.value.info.name]){
+            moduleList[item.value.info.name] = require(`scripts/${item.value.info.name}/main.js`).showSetting || noop
+        }
+        moduleList[item.value.info.name]()
+        return;
+    }
     switch (item.setup.text) {
         case "大爷，打赏一下呗":
             $ui.menu({

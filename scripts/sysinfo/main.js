@@ -195,5 +195,6 @@ function getType(index) {
 
 module.exports = {
     render: render,
-    destroy: destroy
+    destroy: destroy,
+    showSetting: false
 }

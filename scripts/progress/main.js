@@ -75,5 +75,6 @@ function destroy(){
 
 module.exports = {
     render: render,
-    destroy: destroy
+    destroy: destroy,
+    showSetting: false
 }
